@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <math.h>
-using namespace std;
+
 
 /**/
 //Definition for binary tree with next pointer.

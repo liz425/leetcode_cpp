@@ -25,11 +25,11 @@ public:
       bits.push_back(bitrepr);
     }
     int maxP = 0;
-    int k = words.size();
+    int k = (int)words.size();
     for(int i = 0; i < k - 1; i++){
       for(int j = i + 1; j < k; j++){
         if((bits[i] & bits[j]) == 0){
-          int lens = words[i].length() * words[j].length();
+          int lens = int(words[i].length() * words[j].length());
           maxP = (lens > maxP)? lens : maxP;
         }
       }
