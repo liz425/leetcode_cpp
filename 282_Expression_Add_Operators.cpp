@@ -83,7 +83,8 @@ public:
     }
 };
 
-
+//#define _MAIN_
+#ifdef _MAIN_
 int main(void){
     Solution ss;
     vector<string> ans = ss.addOperators("123456789", 45);
@@ -92,3 +93,4 @@ int main(void){
     }
     cout << "end" << endl;
 }
+#endif
