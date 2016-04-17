@@ -8,7 +8,6 @@
 
 #include <stdio.h>
 #include "ListNode.h"
-using namespace std;
 
 class Solution {
 public:
