@@ -52,10 +52,11 @@ public:
     }
 };
 
-
+/*
 int main(){
     Solution ss;
     vector<int> nums = {1,2,3,4,5,6};
     ss.rotate(nums, 2);
     int a = 0;
 }
+*/
