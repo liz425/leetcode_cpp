@@ -33,9 +33,10 @@ public:
     }
 };
 
-
+/*
 int main(){
     Solution ss;
     int n = 2126753390;
     std::cout << ss.firstBadVersion(n) << std::endl;
 }
+*/
