@@ -39,6 +39,6 @@ public:
                 break;
             }
         }
-        return sum;
+        return (int)sum;
     }
 };
