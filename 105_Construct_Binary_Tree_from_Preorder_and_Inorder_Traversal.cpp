@@ -8,8 +8,38 @@
 
 #include "inc.h"
 
+
+class Solution3 {
+public:
+    //AC. Faster than Solution2.s
+    //Convert vector<int>& inorder into a unordered_map, accelerate finding process.
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        unordered_map<int, int> hmap;
+        int len = (int)inorder.size();
+        for(int i = 0; i < len; ++i){
+            hmap[inorder[i]] = i;
+        }
+        return buildTreeHelper(preorder, 0, (int)preorder.size(), hmap, 0, (int)inorder.size());
+    }
+    
+    TreeNode* buildTreeHelper(vector<int>& preorder, int i, int j, unordered_map<int, int>& hmap, int p, int q){
+        if(i >= j){
+            return NULL;
+        }
+        TreeNode* current = new TreeNode(preorder[i]);
+        int me = hmap[preorder[i]];
+        int left = int(me - p);
+        current->left = buildTreeHelper(preorder, i + 1, i + 1 + left, hmap, p, me);
+        current->right = buildTreeHelper(preorder, i + 1 + left, j, hmap, me + 1, q);
+        return current;
+    }
+};
+
+
 class Solution2 {
 public:
+    //AC. Reference to the original vector rather than copy a new one.
+    //However, find() in vector is slow.
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         return buildTreeHelper(preorder, 0, (int)preorder.size(), inorder, 0, (int)inorder.size());
     }
@@ -30,7 +60,7 @@ public:
 
 class Solution {
 public:
-    //Memory Limit Exceeded since we made a copy of the vectors in every recurrsion.
+    //Memory Limit Exceeded, cause we made a copy of the vectors in every recurrsion.
     //Recurrsive solution
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         if(preorder.empty()){
