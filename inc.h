@@ -30,6 +30,7 @@
 #include "ListNode.h"
 #include "TreeNode.h"
 #include "TreeLinkNode.h"
+#include "Interval.h"
 
 using namespace std;
 

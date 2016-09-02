@@ -33,8 +33,8 @@ public:
         // Initialize any member here.
         // **DO NOT** save a copy of nums and manipulate it directly.
         // You should only use the Iterator interface methods.
-        bool nextExist = Iterator::hasNext();
-        int nextItem = nextExist? Iterator::next() : 0;
+        nextExist = Iterator::hasNext();
+        nextItem = nextExist? Iterator::next() : 0;
     }
     
     // Returns the next element in the iteration without advancing the iterator.
