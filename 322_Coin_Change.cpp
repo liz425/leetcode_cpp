@@ -8,7 +8,7 @@
 
 #include "inc.h"
 
-class Solution3 {
+class Solution4 {
     //Use this one
     //DP, faster in C++
     //But theoritically, BFS should run faster than DP
@@ -25,6 +25,34 @@ public:
     }
     
 };
+
+class Solution3 {
+public:
+    //Another BFS
+    int coinChange(vector<int>& coins, int amount) {
+        sort(coins.begin(), coins.end());
+        queue<int> fringe;
+        fringe.push(0);
+        vector<int> changes(amount + 1, -1);
+        changes[0] = 0;
+        while(!fringe.empty()){
+            int money = fringe.front();
+            fringe.pop();
+            for(auto coin : coins){
+                if(coin + money > amount)
+                    break;
+                else if(changes[coin + money] == -1 && changes[money] != -1){
+                    changes[coin + money] = changes[money] + 1;
+                    fringe.push(coin + money);
+                    if(coin + money == amount)
+                        return changes[amount];
+                }
+            }
+        }
+        return changes[amount];
+    }
+};
+
 
 
 class Solution2 {

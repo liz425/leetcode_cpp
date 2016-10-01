@@ -6,9 +6,34 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <vector>
-using namespace std;
+#include "inc.h"
+
+
+class Solution2 {
+public:
+    //skip multiple vertical line if it's smaller than the previous one
+    int maxArea(vector<int>& height) {
+        if(height.size() <= 1)
+            return 0;
+        int i = 0, j = (int)height.size() - 1;
+        int maxWater = 0;
+        while(i < j){
+            maxWater = max(maxWater, min(height[i], height[j]) * (j - i));
+            if(height[i] < height[j]){
+                do{
+                    i++;
+                }while(i < j && height[i - 1] >= height[i]);
+            }else{
+                do{
+                    j--;
+                }while(i < j && height[j] <= height[j + 1]);
+            }
+        }
+        return maxWater;
+    }
+};
+
+
 
 class Solution {
 public:

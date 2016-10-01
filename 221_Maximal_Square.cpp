@@ -8,10 +8,42 @@
 
 #include "inc.h"
 
+class Solution2 {
+public:
+    //Update, this could be better using 1 dimension DP, rather than 2 dimension, save space
+    //DP: state equation
+    //If current node == '1': square[i][j] = min(square[i][j], square[i - 1][j], square[i][j - 1]) + 1
+    //Else: square[i][j] = 0
+    int maximalSquare(vector<vector<char>>& matrix) {
+        if(matrix.empty())
+            return 0;
+        int m = (int)matrix.size();
+        int n = (int)matrix[0].size();
+        vector<vector<int>> square(m, vector<int>(n, 0));
+        int maxArea = 0;
+        for(int i = 0; i < m; ++i){
+            square[i][0] = matrix[i][0] - '0';
+            maxArea = max(maxArea, square[i][0]);
+        }
+        for(int i = 0; i < n; ++i){
+            square[0][i] = matrix[0][i] - '0';
+            maxArea = max(maxArea, square[0][i]);
+        }
+        for(int i = 1; i < m; ++i){
+            for(int j = 1; j < n; ++j){
+                square[i][j] = (matrix[i][j] == '1')? min(min(square[i - 1][j - 1], square[i][j - 1]), square[i - 1][j]) + 1: 0;
+                maxArea = max(maxArea, (int)pow(square[i][j], 2));
+            }
+        }
+        return maxArea;
+    }
+};
+
+
 class Solution {
 public:
     //DP, state equation: edge[i][j] = min(left[j], up[j], edge[i - 1][j - 1] + 1);
-    //PS: Another solution, state equation edge[i][j] = min(edge[i][j], edge[i - 1][j], edge[i][j - 1]) 
+    //PS: Another solution, state equation edge[i][j] = min(edge[i][j], edge[i - 1][j], edge[i][j - 1]) + 1. See solution 2;
     int maximalSquare(vector<vector<char>>& matrix) {
         if(matrix.empty()){
             return 0;

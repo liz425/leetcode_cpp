@@ -8,6 +8,44 @@
 
 #include "inc.h"
 
+
+class Solution2 {
+    //Inspired by "DietPepsi"
+public:
+    vector<string> result;
+    vector<string> removeInvalidParentheses(string s) {
+        vector<char> paren = {'(', ')'};
+        DFS(s, 0, 0, paren);
+        return result;
+    }
+    void DFS(string s, int lastRemoval, int index, vector<char>& paren){
+        int remain = 0;
+        for(int i = index; i < s.size(); ++i){
+            if(s[i] == paren[0])
+                remain++;
+            else if(s[i] == paren[1])
+                remain--;
+            if(remain < 0){
+                for(int j = lastRemoval; j <= i; ++j){
+                    if(s[j] == paren[1] && (j == lastRemoval || s[j] != s[j-1]))
+                        DFS(s.substr(0, j) + s.substr(j+1, s.size() - 1 - j), j, i, paren);
+                }
+                return;
+            }
+        }
+        if(paren[0] == '('){
+            reverse(s.begin(), s.end());
+            vector<char> reverseParen = {')', '('};
+            DFS(s, 0, 0, reverseParen);
+        }else{
+            reverse(s.begin(), s.end());
+            result.push_back(s);
+        }
+    }
+};
+
+
+
 class Solution {
 public:
     unordered_set<string> removeRightParen(string s){
