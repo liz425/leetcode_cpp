@@ -8,6 +8,73 @@
 
 #include "inc.h"
 
+class Solution2 {
+    //Another way of implementing Trie
+public:
+    int m, n;
+    struct Node{
+        string str;
+        Node* child[26];
+        Node(){
+            str = "";
+            for(int i = 0; i < 26; ++i)
+                child[i] = NULL;
+            return;
+        }
+    };
+    void insert(Node* root, string s){
+        for(char ch : s){
+            if(root->child[ch-'a'] == NULL)
+                root->child[ch-'a'] = new Node();
+            root = root->child[ch-'a'];
+        }
+        root->str = s;
+    }
+    Node* buildTrie(vector<string>& words){
+        Node* root = new Node();
+        for(auto word: words){
+            insert(root, word);
+        }
+        return root;
+    }
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        Node* root = buildTrie(words);
+        vector<string> ans;
+        if(board.empty() || board[0].empty())
+            return ans;
+        m = (int)board.size();
+        n = (int)board[0].size();
+        for(int i = 0; i < m; ++i){
+            for(int j = 0; j < n; ++j){
+                DFS(board, i, j, root, ans);
+            }
+        }
+        return ans;
+    }
+    void DFS(vector<vector<char>>& board, int i, int j, Node* root, vector<string>& ans){
+        char ch = board[i][j];
+        if(ch == '#' || root->child[ch - 'a'] == NULL)
+            return;
+        root = root->child[ch - 'a'];
+        if(!root->str.empty()){
+            ans.push_back(root->str);
+            root->str = "";
+        }
+        board[i][j] = '#';
+        if(i > 0)
+            DFS(board, i - 1, j, root, ans);
+        if(i < m - 1)
+            DFS(board, i + 1, j, root, ans);
+        if(j > 0)
+            DFS(board, i, j - 1, root, ans);
+        if(j < n - 1)
+            DFS(board, i, j + 1, root, ans);
+        board[i][j] = ch;
+    }
+};
+
+
+
 class Solution {
 public:
     int height, width;
@@ -85,7 +152,7 @@ public:
                 }
             }
             visited[j][i] = false;
-            //if root->child == NULL, then all childred have been solved and deleted, thus return true
+            //if root->child == NULL, then all children have been solved and deleted, thus return true
             return (root->child == NULL);
         }
     }

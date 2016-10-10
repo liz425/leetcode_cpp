@@ -9,6 +9,56 @@
 #include "inc.h"
 
 
+class Solution2 {
+    //DFS
+public:
+    int m, n;
+    bool exist(vector<vector<char>>& board, string word) {
+        if(board.empty() || board[0].empty())
+            return false;
+        if(word.empty())
+            return true;
+        m = (int)board.size();
+        n = (int)board[0].size();
+        vector<vector<bool>> visited(m, vector<bool>(n, false));
+        for(int i = 0; i < m; ++i){
+            for(int j = 0; j < n; ++j){
+                if(DFS(board, visited, i, j, word, 0))
+                    return true;
+            }
+        }
+        return false;
+    }
+    bool DFS(vector<vector<char>>& board, vector<vector<bool>>& visited, int i, int j, string& word, int index){
+        if(visited[i][j] || board[i][j] != word[index])
+            return false;
+        else if(index == word.size() - 1)
+            return true;
+        else{
+            visited[i][j] = true;
+            if(i > 0 && !visited[i - 1][j]){
+                if(DFS(board, visited, i - 1, j, word, index + 1))
+                    return true;
+            }
+            if(i < m - 1 && !visited[i + 1][j]){
+                if(DFS(board, visited, i + 1, j, word, index + 1))
+                    return true;
+            }
+            if(j > 0 && !visited[i][j - 1]){
+                if(DFS(board, visited, i, j - 1, word, index + 1))
+                    return true;
+            }
+            if(j < n - 1 && !visited[i][j + 1]){
+                if(DFS(board, visited, i, j + 1, word, index + 1))
+                    return true;
+            }
+            visited[i][j] = false;
+            return false;
+        }
+    }
+};
+
+
 class Solution {
 public:
     int height, width;

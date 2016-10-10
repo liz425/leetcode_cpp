@@ -14,19 +14,20 @@ public:
     int trap(vector<int>& height) {
         if(height.empty())
             return 0;
-        int i = 0, j = (int)height.size() - 1;
-        int sum = 0, vol = min(height[i], height[j]);
-        while(i < j - 1){
-            int mid;
-            if(height[i] < height[j]){
-                mid = ++i;
-            }else{
-                mid = --j;
-            }
+        int left = 0, mid = 0;
+        int right = (int)height.size() - 1;
+        int vol = min(height[left], height[right]);
+        int sum = 0;
+        //There should be no water trapped on border(left and right), so only consider mid)
+        while(left + 1 < right){
+            if(height[left] < height[right])
+                mid = ++left;
+            else
+                mid = --right;
             if(height[mid] <= vol)
                 sum += vol - height[mid];
             else
-                vol = min(height[i], height[j]);
+                vol = min(height[left], height[right]);
         }
         return sum;
     }
