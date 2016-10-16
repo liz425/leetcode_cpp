@@ -31,25 +31,25 @@ public:
   }
 };
 
-// Iteration, time O(n), space O(1)
+
+
 class Solution2 {
+    //Recursion, time O(n), space O(1).
+    //However, recursion it seft may consume O(logn) space
+    //Thus we may turn to Solution3, using iteration to achieve real O(1) space.
 public:
-  void connect(TreeLinkNode* root) {
-    if (root == NULL){
-      return;
+    void connect(TreeLinkNode *root) {
+        if(!root)
+            return;
+        if(root->left)
+            root->left->next = root->right;
+        if(root->next && root->right)
+            root->right->next = root->next->left;
+        connect(root->left);
+        connect(root->right);
     }
-  
-    if (root->left != NULL){
-      root->left->next = root->right;
-      if (root->next != NULL){
-        root->right->next = root->next->left;
-      }
-    }
-  
-    connect(root->left);
-    connect(root->right);
-  }
 };
+
 
 class Solution {
 public:

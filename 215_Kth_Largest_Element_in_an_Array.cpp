@@ -12,11 +12,13 @@ class Solution2 {
 public:
     int findKthLargest(vector<int>& nums, int k) {
         srand((unsigned int)time(NULL));
-        return partition(nums, 0, (int)nums.size(), (int)nums.size() - k + 1);
+        return partition(nums, 0, (int)nums.size(), (int)nums.size() - k);
     }
     int partition(vector<int>& nums, int start, int end, int k){
-        if(start == end - 1)
+        //k is 0-base
+        if(start >= end - 1){
             return nums[start];
+        }
         int index = rand() % (end - start) + start;
         int pivot = nums[index];
         //hide pivot to the right most
@@ -33,10 +35,13 @@ public:
                 index++;
             }
         }
-        if(k <= index - start){
+        swap(nums[index], nums[end - 1]);
+        if(index > k){
             return partition(nums, start, index, k);
+        }else if(index < k){
+            return partition(nums, index + 1, end, k);
         }else{
-            return partition(nums, index, end, k - (index - start));
+            return nums[index];
         }
     }
 };

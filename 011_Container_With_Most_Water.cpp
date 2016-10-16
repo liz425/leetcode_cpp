@@ -9,9 +9,34 @@
 #include "inc.h"
 
 
+class Solution3 {
+    //skip multiple vertical line if it's smaller than the previous border
+public:
+    int maxArea(vector<int>& height) {
+        int maxA = 0;
+        int i = 0, j = (int)height.size() - 1;
+        while(i < j){
+            maxA = max(maxA, min(height[i], height[j]) * (j - i));
+            if(height[i] > height[j]){
+                int r = j--;
+                while(i < j && height[j] <= height[r]){
+                    --j;
+                }
+            }else{
+                int l = i++;
+                while(i < j && height[i] <= height[l]){
+                    ++i;
+                }
+            }
+        }
+        return maxA;
+    }
+};
+
+
 class Solution2 {
 public:
-    //skip multiple vertical line if it's smaller than the previous one
+    //skip if it's decreasing
     int maxArea(vector<int>& height) {
         if(height.size() <= 1)
             return 0;

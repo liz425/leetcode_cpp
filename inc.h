@@ -17,6 +17,7 @@
 #include <vector>
 #include <queue>
 #include <set>
+#include <list>
 #include <unordered_set>
 #include <unordered_map>
 
@@ -31,6 +32,7 @@
 #include "TreeNode.h"
 #include "TreeLinkNode.h"
 #include "Interval.h"
+#include "RandomListNode.h"
 
 using namespace std;
 

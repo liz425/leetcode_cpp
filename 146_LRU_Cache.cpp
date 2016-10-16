@@ -8,6 +8,41 @@
 
 #include "inc.h"
 
+class LRUCache2{
+    //using STL list<>
+    unordered_map<int, list<pair<int, int>>::iterator> hash;
+    int m_capacity;
+    list<pair<int, int>> cache;
+public:
+    LRUCache2(int capacity) {
+        m_capacity = capacity;
+    }
+    
+    int get(int key) {
+        if(hash.find(key) == hash.end())
+            return -1;
+        auto it = hash[key];
+        auto item = *it;
+        cache.erase(it);
+        cache.push_front(item);
+        hash[key] = cache.begin();
+        return item.second;
+    }
+    
+    void set(int key, int value) {
+        if(hash.find(key) != hash.end())
+            cache.erase(hash[key]);  // now cache_size == (hash_size - 1)
+        if(cache.size() == m_capacity){  //note that in C++98, list.size() takes linear time
+            hash.erase(cache.back().first);
+            cache.pop_back();
+        }
+        cache.push_front(make_pair(key, value));
+        hash[key] = cache.begin();
+    }
+};
+
+
+
 class LRUCache{
     //use double linked list and hashtable
 public:

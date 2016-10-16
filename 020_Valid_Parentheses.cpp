@@ -11,6 +11,26 @@
 #include <stack>
 using namespace std;
 
+class Solution2 {
+    //More concise than Solution1
+public:
+    bool isPair(char a, char b){
+        return (a == '(' && b == ')') || (a == '[' && b == ']') || (a == '{' && b == '}');
+    }
+    bool isValid(string s) {
+        stack<char> pre;
+        for(char ch : s){
+            if(ch == '(' || ch == '[' || ch == '{')
+                pre.push(ch);
+            else if(pre.empty() || !isPair(pre.top(), ch))
+                return false;
+            else
+                pre.pop();
+        }
+        return pre.empty();
+    }
+};
+
 
 //when using stack, every time when pop(), should check if it's empty() at first
 class Solution {

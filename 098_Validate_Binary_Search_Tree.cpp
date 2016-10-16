@@ -10,19 +10,19 @@
 
 
 class Solution2 {
+    //in-order traverse the tree, check its monotonicity
 public:
-    int current = 0;
-    bool started = false;
+    int last = 0;  //last visited item. If currently still a valid BST, then last should be the largest element
+    bool isInit = true; //for the first element, do not require to be larger the last one
     bool isValidBST(TreeNode* root) {
-        //in-order traverse the tree, check its monotonicity
         if(!root)
             return true;
-        if(!isValidBST(root->left))
+        if(root->left && !isValidBST(root->left))
             return false;
-        if(started && current >= root->val)
+        if(!isInit && last >= root->val)
             return false;
-        current = root->val;
-        started = true;
+        last = root->val;
+        isInit = false;
         return isValidBST(root->right);
     }
 };

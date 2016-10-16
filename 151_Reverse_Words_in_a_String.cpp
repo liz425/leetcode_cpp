@@ -6,12 +6,52 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <iostream>
-#include <stdio.h>
-#include <vector>
-#include <string>
-using namespace std;
+#include "inc.h"
 
+class Solution2 {
+    //inplace solution
+public:
+    void removeLeadingZeros(string &s){
+        int i = 0;
+        int len = (int)s.size();
+        while(i < len && s[i] == ' '){
+            i++;
+        }
+        s = s.substr(i);
+    }
+    void removeContinuousZeros(string &s){
+        int i = 0;
+        while(i < s.size()){
+            if(i > 0 && s[i] == ' ' && s[i-1] == ' '){
+                //Have to assign erase len = 1, otherwise it will erase all char until the end
+                s.erase(i, 1);
+            }else{
+                i++;
+            }
+        }
+    }
+    void reverseWords(string &s) {
+        //remove leading zeros => reverse => remove leading zeros again
+        removeLeadingZeros(s);
+        reverse(s.begin(), s.end());
+        removeLeadingZeros(s);
+        removeContinuousZeros(s);
+        if(s.empty())
+            return;
+        auto head = s.begin();
+        auto tail = head;
+        while(tail != s.end()){
+            if(*tail == ' '){
+                reverse(head, tail);
+                tail++;
+                head = tail;
+            }else{
+                tail++;
+            }
+        }
+        reverse(head, tail);
+    }
+};
 
 class Solution {
 public:
@@ -44,8 +84,8 @@ public:
 
 /*
 int main(){
-    string in = "";
-    Solution ss;
+    string in = "  a  b  ";
+    Solution2 ss;
     ss.reverseWords(in);
     cout << in << endl;
     return 0;

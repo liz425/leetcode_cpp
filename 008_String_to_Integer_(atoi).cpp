@@ -6,10 +6,7 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <string>
-#include <climits>
-using namespace std;
+#include "inc.h"
 
 class Solution {
 public:

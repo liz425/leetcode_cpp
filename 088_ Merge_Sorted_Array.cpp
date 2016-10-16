@@ -6,12 +6,10 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <vector>
-#include <iostream>
-using namespace std;
+#include "inc.h"
 
 class Solution {
+    //T = O(m + n), in-place
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
         while(m > 0 && n > 0){

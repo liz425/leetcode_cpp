@@ -9,17 +9,35 @@
 #include <stdio.h>
 #include "ListNode.h"
 
+
+class Solution2 {
+    //recursive solution
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(!head || !head->next){
+            return head;
+        }else{
+            ListNode* new_head = reverseList(head->next);
+            head->next->next = head;
+            head->next = NULL;
+            return new_head;
+        }
+    }
+};
+
+
+
 class Solution {
     //iterative solution
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode * prev = NULL;
-        while(head != NULL){
-            ListNode * tmp_next = head->next;
-            head->next = prev;
-            prev = head;
-            head = tmp_next;
+        ListNode *cur = head, *pre = NULL, *next = NULL;
+        while(cur){
+            next = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = next;
         }
-        return prev;
+        return pre;
     }
 };
