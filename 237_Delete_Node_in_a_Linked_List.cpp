@@ -6,13 +6,12 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include "ListNode.h"
+#include "inc.h"
 
 class Solution {
 public:
     void deleteNode(ListNode* node) {
-        if(node != NULL && node->next != NULL){
+        if(node && node->next){
             node->val = node->next->val;
             node->next = node->next->next;
         }

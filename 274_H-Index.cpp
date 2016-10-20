@@ -6,10 +6,9 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <functional>
-#include <vector>
-using namespace std;
+#include "inc.h"
+
+
 class Solution2 {
     //time: O(n), space: O(n)
 public:
@@ -51,3 +50,6 @@ public:
         return i;
     }
 };
+
+
+

@@ -6,14 +6,26 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <vector>
-#include <iostream>
-#include "ListNode.h"
-using namespace std;
+#include "inc.h"
+
+
+class Solution2 {
+    //recursion solution, but this may not be real constant space, since the recursion stack may consume O(n) space.
+    //However, it's simple and concise.
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if(!head || !head->next)
+            return head;
+        ListNode *second = head->next;
+        head->next = swapPairs(second->next);
+        second->next = head;
+        return second;
+    }
+};
 
 
 class Solution {
+    //This can be generalized as 025_Reverse_Nodes_in_k_Group.cpp
 public:
     ListNode* swapPairs(ListNode* head) {
         if(head == NULL)

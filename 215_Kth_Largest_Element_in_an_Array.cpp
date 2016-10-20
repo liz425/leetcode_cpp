@@ -9,6 +9,8 @@
 #include "inc.h"
 
 class Solution2 {
+    //Use idea of quick select (part of quick sort)
+    //T = O(n)
 public:
     int findKthLargest(vector<int>& nums, int k) {
         srand((unsigned int)time(NULL));
