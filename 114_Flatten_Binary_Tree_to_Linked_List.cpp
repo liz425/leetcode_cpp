@@ -9,6 +9,23 @@
 #include "inc.h"
 
 
+class Solution2 {
+public:
+    void flatten(TreeNode* root) {
+        if(!root)
+            return;
+        pre = root;
+        flatten(root->left);
+        pre->right = root->right;
+        flatten(root->right);
+        root->right = root->left ? root->left : root->right;
+        root->left = NULL;
+    }
+private:
+    TreeNode* pre = NULL;
+};
+
+
 class Solution {
 public:
     void flatten(TreeNode* root) {

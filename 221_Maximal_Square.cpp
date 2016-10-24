@@ -8,9 +8,41 @@
 
 #include "inc.h"
 
+class Solution3 {
+public:
+    //Use rolling array to optimize space complexity to O(n) rather than O(m*n)
+    //DP: state equation
+    //If current node == '1': square[i][j] = min(square[i][j], square[i - 1][j], square[i][j - 1]) + 1
+    //Else: square[i][j] = 0
+    int maximalSquare(vector<vector<char>>& matrix) {
+        if(matrix.empty())
+            return 0;
+        int m = (int)matrix.size();
+        int n = (int)matrix[0].size();
+        int square[2][n];
+        int maxArea = 0;
+        for(int i = 0; i < n; ++i){
+            square[0][i] = matrix[0][i] - '0';
+            maxArea = max(maxArea, square[0][i]);
+        }
+        for(int i = 1; i < m; ++i){
+            for(int j = 0; j < n; ++j){
+                if(j == 0){
+                    square[i % 2][0] = matrix[i][j] - '0';
+                }else{
+                    square[i % 2][j] = (matrix[i][j] == '1')? min(min(square[(i - 1) % 2][j - 1], square[i % 2][j - 1]), square[(i - 1) % 2][j]) + 1: 0;
+                }
+                maxArea = max(maxArea, (int)pow(square[i % 2][j], 2));
+            }
+        }
+        return maxArea;
+    }
+};
+
+
 class Solution2 {
 public:
-    //Update, this could be better using 1 dimension DP, rather than 2 dimension, save space
+    //Update, this could be better using 1 dimension DP, rather than 2 dimension, save space. See solution3
     //DP: state equation
     //If current node == '1': square[i][j] = min(square[i][j], square[i - 1][j], square[i][j - 1]) + 1
     //Else: square[i][j] = 0

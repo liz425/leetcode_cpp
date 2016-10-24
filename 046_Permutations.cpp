@@ -6,27 +6,26 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <vector>
-using namespace std;
+#include "inc.h"
+
 
 class Solution {
 public:
-    void permute_helper(int k, vector<int>& nums, vector<vector<int>>& rtn){
+    //At current level, chose one element from the leading K elements and swap it with the k-th element (k is 1-base)
+    void dfs(int k, vector<int>& nums, vector<vector<int>>& result){
         if(k == 1){
-            rtn.push_back(nums);
+            result.push_back(nums);
         }
         for(int i = 0; i < k; i++){
-            vector<int> boring = nums;
-            boring[i] = nums[k - 1];
-            boring[k - 1] = nums[i];
-            permute_helper(k - 1, boring, rtn);
+            swap(nums[i], nums[k - 1]);
+            dfs(k - 1, nums, result);
+            swap(nums[i], nums[k - 1]);
         }
     }
     
     vector<vector<int>> permute(vector<int>& nums) {
-        vector<vector<int>> rtn;
-        permute_helper((int)nums.size(), nums, rtn);
-        return rtn;
+        vector<vector<int>> result;
+        dfs((int)nums.size(), nums, result);
+        return result;
     }
 };

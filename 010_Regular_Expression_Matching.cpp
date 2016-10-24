@@ -6,43 +6,65 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-//////////////////////////////////////////////////
-// This code seems right when running on my machine
-// But it encounter "Runtime Error" in the leetcode
-// Have no idea why it happens.
-//////////////////////////////////////////////////
 
 
 #include "inc.h"
 
-class Solution2 {
-    //DP solution, should use this.
+
+class Solution3 {
+    //DP, based on Solution2. Use rolling array to reduce memory space consumption.
+    //Moreover, "% 3" can be changed to "% 2" for futher optimization here.
+    //If only we are not going to use dp[(i - 2) % 2][j - x] (x > 0) when calculating dp[i][j],
+    //We are safe to overwrite dp[(i - 2) % 2][j]. Because dp[(i - 2) % 2][j - x] is already overwritten at j-th loop.
+    //In this solution, we are safe. However, "% 3" is always safe with little overhead.
 public:
     bool isMatch(string s, string p) {
-        int m = (int)s.size(), n = (int)p.size();
-        vector<vector<bool>> DP(m + 1, vector<bool>(n + 1, false));
-        DP[0][0] = true;
-        for(int i = 1; i <= m; ++i){
-            DP[i][0] = false;
-        }
+        int m = (int)s.size();
+        int n = (int)p.size();
+        vector<vector<bool>> dp(3, vector<bool>(m + 1, false));
+        dp[0][0] = true;
         for(int i = 1; i <= n; ++i){
-            DP[0][i] = i > 1 && p[i - 1] == '*' && DP[0][i - 2];
-        }
-        for(int i = 1; i <= m; ++i){
-            for(int j = 1; j <= n; ++j){
-                if(p[j - 1] == '*'){
-                    DP[i][j] = j > 1 && (DP[i][j - 2] || (DP[i - 1][j] && (p[j - 2] == '.' || p[j - 2] == s[i - 1])));
+            dp[i % 3][0] = (i > 1) && (p[(i - 1)] == '*') && dp[(i - 2) % 3][0];
+            for(int j = 1; j <= m; ++j){
+                if(p[(i - 1)] == '*'){
+                    dp[i % 3][j] = (i > 1) && (dp[(i - 2) % 3][j] || (dp[i % 3][j - 1]  && (p[i - 2] == '.' || p[i - 2] == s[j - 1])));
                 }else{
-                    DP[i][j] = DP[i - 1][j - 1] && (p[j - 1] == '.' || p[j - 1] == s[i - 1]);
+                    dp[i % 3][j] = dp[(i - 1) % 3][j - 1] && (p[i - 1] == '.' || p[i - 1] == s[j - 1]);
                 }
             }
         }
-        return DP[m][n];
+        return dp[n % 3][m];
     }
 };
 
 
-class Solution1 {
+
+class Solution2 {
+    //DP solution
+public:
+    bool isMatch(string s, string p) {
+        int m = (int)s.size();
+        int n = (int)p.size();
+        vector<vector<bool>> dp(n + 1, vector<bool>(m + 1, false));
+        dp[0][0] = true;
+        for(int i = 1; i <= n; ++i){
+            dp[i][0] = (i > 1) && (p[i - 1] == '*') && dp[i - 2][0];
+        }
+        for(int i = 1; i <= n; ++i){
+            for(int j = 1; j <= m; ++j){
+                if(p[i - 1] == '*'){
+                    dp[i][j] = (i > 1) && (dp[i - 2][j] || (dp[i][j - 1]  && (p[i - 2] == '.' || p[i - 2] == s[j - 1])));
+                }else{
+                    dp[i][j] = dp[i - 1][j - 1] && (p[i - 1] == '.' || p[i - 1] == s[j - 1]);
+                }
+            }
+        }
+        return dp[n][m];
+    }
+};
+
+
+class Solution {
 //Non-DP, compare forward, from head to tail
 //Really SLOW, Never use it.
 public:
@@ -58,54 +80,6 @@ public:
     }
 };
 
-
-class Solution {
-//Non-DP solution. Compare backward (from back to front)
-//Really SLOW. Should NEVER use it.
-public:
-    bool isMatch(string s, string p) {
-        if (p.empty())
-            return s.empty();
-    
-        if(p.back() == '*'){
-            string p1 = p;
-            p1.pop_back();
-            if(p1.empty())
-                return false;
-            char c_p = p1.back();
-            p1.pop_back();
-      
-            if(isMatch(s, p1))
-                return true;
-            else if(!s.empty()){
-                string s1 = s;
-                char c_s = s1.back();
-                s1.pop_back();
-                
-                if(!CharEqual(c_p, c_s))
-                    return false;
-                else if(isMatch(s1, p1))
-                    return true;
-                else
-                    return isMatch(s1, p);
-                }
-            else
-                return false;
-        }else if(s.empty()){
-            return false;
-        }else if (CharEqual(s.back(), p.back())) {
-            s.pop_back();
-            p.pop_back();
-            return isMatch(s, p);
-        }else{
-            return false;
-        }
-    }
-  
-    bool CharEqual(char a, char b){
-        return (a == '.' || b == '.' || a == b);
-    }
-};
 
 /*
 int main(){

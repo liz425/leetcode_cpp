@@ -8,6 +8,12 @@
 
 #include "inc.h"
 
+
+struct comparator{
+    bool operator()(ListNode *a, ListNode *b){
+        return a->val > b->val;
+    }
+};
 class Solution {
     //use a heap to store current heads of all list
     //it takes O(log K) time to get the smallest head (suppose average K linked list)
@@ -19,13 +25,15 @@ public:
         auto cmp = [](ListNode* left, ListNode* right){
             return (left->val > right->val);
         };
+        //Either way of implementation of comparator is OK
         priority_queue<ListNode*, vector<ListNode*>, decltype(cmp)> heap(cmp);
+        //priority_queue<ListNode*, vector<ListNode*>, comparator> heap;
         for(auto& node: lists){
             if(node != NULL)
                 heap.push(node);
         }
-        ListNode* head = new ListNode(0);
-        ListNode* current = head;
+        ListNode* dummy = new ListNode(0);
+        ListNode* current = dummy;
         while(!heap.empty()){
             current->next = heap.top();
             current = current->next;
@@ -35,8 +43,8 @@ public:
             }
         }
         current->next = NULL;
-        current = head->next;
-        delete head;
+        current = dummy->next;
+        delete dummy;
         return current;
     }
 };
