@@ -18,6 +18,7 @@ public:
         for(int i = 1; i < DP.size(); ++i){
             if(s[i - 1] > '0')
                 DP[i] = DP[i - 1];
+            //note that 0 < stoi(val) < 26 won't gurantee a correct anser since "01" is not a valid answer.
             if(i >= 2 && (s[i - 2] == '1' || (s[i - 2] == '2' && s[i - 1] < '7')))
                 DP[i] += DP[i - 2];
         }

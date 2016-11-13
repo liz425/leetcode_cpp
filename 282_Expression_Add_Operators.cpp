@@ -13,6 +13,43 @@
 #include <iostream>
 using namespace std;
 
+
+
+
+class Solution2 {
+    //DFS, faster and cleaner than Solution
+public:
+    vector<string> addOperators(string num, int target) {
+        vector<string> result;
+        DFS(result, num, target, "", 0, 0, 0);
+        return result;
+    }
+    //cur: current processed prefix;  pos: current head;  value: value of 'cur';  right: right most operand in 'cur'
+    void DFS(vector<string>& result, string& num, int target, string cur, int pos, long value, long right){
+        if(pos >= num.size()){
+            if(value == target && !cur.empty()){
+                result.push_back(cur);
+            }
+            return;
+        }
+        for(int i = pos; i < num.size(); ++i){
+            if(num[pos] == '0' && i > pos)      //a number can't start with 0 and length >= 2; e.g. '00', '05' are illegal
+                break;
+            string opStr = num.substr(pos, i - pos + 1);
+            long opVal = stol(opStr);
+            if(pos == 0){
+                DFS(result, num, target, opStr, i + 1, opVal, opVal);   //shouldn't add operator at begining
+            }else{
+                DFS(result, num, target, cur+'+'+opStr, i + 1, value + opVal, opVal);
+                DFS(result, num, target, cur+'-'+opStr, i + 1, value - opVal, -opVal);
+                DFS(result, num, target, cur+'*'+opStr, i + 1, value - right + right * opVal, right * opVal);
+            }
+        }
+    }
+};
+
+
+
 class Solution {
 public:
     vector<string> final = {};
@@ -83,8 +120,7 @@ public:
     }
 };
 
-//#define _MAIN_
-#ifdef _MAIN_
+/*
 int main(void){
     Solution ss;
     vector<string> ans = ss.addOperators("123456789", 45);
@@ -93,4 +129,4 @@ int main(void){
     }
     cout << "end" << endl;
 }
-#endif
+*/

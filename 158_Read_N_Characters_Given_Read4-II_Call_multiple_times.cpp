@@ -22,7 +22,49 @@ int read4(char *buf){
 }
 
 
+
 class Solution2 {
+public:
+    /**
+     * @param buf Destination buffer
+     * @param n   Maximum number of characters to read
+     * @return    The number of characters read
+     */
+    string Gbuffer;
+    Solution2(){
+        Gbuffer = "";
+    }
+    int readN(int n){
+        int k = n / 4 + ((n % 4)? 1 : 0);   // '+' has higher priority than '?:', MUST add the parentheses.....
+        int cnt = 0;
+        char buf[4];
+        while(k-- > 0){
+            int obtained = read4(buf);
+            for(int i = 0; i < obtained; ++i){
+                Gbuffer += buf[i];
+            }
+            cnt += obtained;
+            if(obtained < 4)
+                break;
+        }
+        return cnt;
+    }
+    int read(char *buf, int n) {
+        if(n > Gbuffer.size())
+            readN(n - (int)Gbuffer.size());
+        int obtained = min(n, (int)Gbuffer.size());
+        for(int i = 0; i < obtained; ++i){
+            buf[i] = Gbuffer[i];
+        }
+        Gbuffer = Gbuffer.substr(obtained);
+        return obtained;
+    }
+};
+
+
+
+
+class Solution {
 public:
     /**
      * @param buf Destination buffer
@@ -78,37 +120,6 @@ public:
 };
 
 
-class Solution {
-public:
-    /**
-     * @param buf Destination buffer
-     * @param n   Maximum number of characters to read
-     * @return    The number of characters read
-     */
-    string Gbuffer = "";
-    int bufLen = 0;
-    int read(char *buf, int n) {
-        if(n > bufLen && bufLen % 4 == 0){
-            int remain = n - bufLen;
-            int k = (remain % 4)? remain / 4 + 1 : remain / 4;
-            char read4buf[4];
-            for(int i = 0; i < k; ++i){
-                int incre = read4(read4buf);
-                for(int j = 0; j < incre; ++j){
-                    Gbuffer += read4buf[j];
-                }
-                bufLen += incre;
-                if(incre != 4)
-                    break;
-            }
-        }
-        int result = min(bufLen, n);
-        for(int i = 0; i < result; ++i){
-            buf[i] = Gbuffer[i];
-        }
-        return result;
-    }
-};
 
 /*
 int main(){

@@ -6,10 +6,55 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <iostream>
-#include <vector>
-#include <string>
-using namespace std;
+#include "inc.h"
+
+
+class Solution2 {
+    //Same idea, rewrite.
+public:
+    vector<string> fullJustify(vector<string>& words, int maxWidth) {
+        vector<string> result;
+        int wordCnt = 0;
+        int wordLen = 0;
+        for(int i = 0; i < (int)words.size(); ++i){
+            if(wordLen + (int)words[i].size() + wordCnt <= maxWidth){
+                wordCnt++;
+                wordLen += (int)words[i].size();
+            }else{
+                string candid = "";
+                if(wordCnt == 1){
+                    candid = words[i - 1] + string(maxWidth - wordLen, ' ');
+                }else{
+                    int averSpace = (maxWidth - wordLen) / (wordCnt - 1);
+                    int remain = (maxWidth - wordLen) % (wordCnt - 1);
+                    for(int j = 0; j < wordCnt; j++){
+                        candid += words[i - wordCnt + j];
+                        int k = 0;
+                        if(j < remain){
+                            k = averSpace + 1;
+                        }else if(j < wordCnt - 1){
+                            k = averSpace;
+                        }else{
+                            k = 0;
+                        }
+                        candid += string(k, ' ');
+                    }
+                }
+                result.push_back(candid);
+                wordCnt = 1;
+                wordLen = (int)words[i].size();
+            }
+        }
+        string candid = words[(int)words.size() - wordCnt];
+        for(int i = 1; i < wordCnt; ++i){
+            candid += " " + words[(int)words.size() - wordCnt + i];
+        }
+        candid += string(maxWidth - wordLen - wordCnt + 1, ' ');
+        result.push_back(candid);
+        return result;
+    }
+};
+
 
 
 class Solution {

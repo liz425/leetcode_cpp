@@ -12,32 +12,29 @@
 #include <unordered_map>
 using namespace std;
 
+
 class Solution3 {
     // unordered_map implementation based on Solution2.
     // reduce times of hash inquiry, faster than solution2.
 public:
     int longestConsecutive(vector<int>& nums) {
-        int result = 0;
-        unordered_map<int, int> m;
-        for(auto& num : nums){
-            if(m[num])  continue;
-            int a = m[num - 1];
-            int b = m[num + 1];
-            int tmp;
-            if(a == 0 && b == 0){
-                tmp = m[num] = 1;
-            }else if(a != 0 && b == 0){
-                tmp = m[num] = m[num - a] = a + 1;
-            }else if(a == 0 && b != 0){
-                tmp = m[num] = m[num + b] = b + 1;
-            }else{
-                tmp = m[num] = m[num - a] = m[num + b] = a + b + 1;
-            }
-            result = max(result, tmp);
+        unordered_map<int, int> blocks;
+        int maxLen = 0;
+        for(int num : nums){
+            if(blocks[num])     //already exist, maybe duplicated
+                continue;
+            int left = blocks[num - 1];
+            int right = blocks[num + 1];
+            blocks[num] = left + right + 1;
+            blocks[num - left] = left + right + 1;
+            blocks[num + right] = left + right + 1;
+            maxLen = max(maxLen, left + right + 1);
         }
-        return result;
+        return maxLen;
     }
 };
+
+
 
 class Solution2 {
     // unordered_map implementation, a little faster than first solution. Much more breif.

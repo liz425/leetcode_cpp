@@ -6,7 +6,65 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
+
 #include "inc.h"
+
+
+class NumArray2 {
+    //BIT solution
+private:
+    vector<int> tree;   //BIT tree, index from 1
+    int maxSize;
+public:
+    NumArray2(vector<int> &nums) {
+        maxSize = (int)nums.size();
+        tree.assign(maxSize + 1, 0);
+        for(int i = 0; i < maxSize; ++i){
+            add(i, nums[i]);
+        }
+    }
+    
+    //add delta to nums[i]
+    void add(int idx, int delta){
+        idx++;
+        while(idx <= maxSize){
+            tree[idx] += delta;
+            idx += (-idx & idx);
+        }
+    }
+    
+    //query the actually value on nums[i]
+    //also we could use an reference vector<int>& _nums = nums;
+    //then we could directly modify and access nums[i] through _nums[i]
+    int queryNode(int idx){
+        idx++;
+        int sum = tree[idx];
+        int preIdx = idx - (-idx & idx);
+        idx--;  //here is an assumption that idx > 0. then after idx--, idx won't be negtive
+        while(idx != preIdx){
+            sum -= tree[idx];
+            idx -= (-idx & idx);
+        }
+        return sum;
+    }
+    void update(int i, int val) {
+        int delta = val - queryNode(i);
+        add(i, delta);
+    }
+    int querySum(int idx){
+        idx++;  //tree index from 1, but nums index from 0
+        int sum = 0;
+        while(idx > 0){
+            sum += tree[idx];
+            idx -= (-idx & idx);
+        }
+        return sum;
+    }
+    int sumRange(int i, int j) {
+        return querySum(j) - querySum(i - 1);
+    }
+};
+
 
 class NumArray {
 public:
@@ -17,9 +75,9 @@ public:
         size = (int)nums.size();
         if(size == 0)
             return;
-        int treeSize = pow(2, (int)log2(size));
-        treeSize = (treeSize == size)? treeSize * 2 : treeSize * 4;
-        tree.resize(treeSize, 0);
+        //should check if n == 0, since log2(0) is invalid
+        int treeSize = pow(2, ceil(log2(size)) + 1);
+        tree.assign(treeSize, 0);
         buildTree(nums, 0, 0, size - 1);
     }
     void buildTree(vector<int>& nums, int treeIndex, int lo, int hi){
@@ -39,7 +97,9 @@ public:
         updateTreeNode(i, val, 0, 0, size - 1);
     }
     void updateTreeNode(int i , int val, int treeIndex, int lo, int hi){
-        if(lo == hi){
+        if(i > hi || i < lo){
+            return;
+        }else if(lo == hi){
             tree[treeIndex] = val;
             return;
         }

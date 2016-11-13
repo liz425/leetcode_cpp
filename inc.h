@@ -24,6 +24,7 @@
 #include <limits>
 #include <algorithm>
 #include <cmath>
+#include <numeric>
 
 #include "time.h"
 
