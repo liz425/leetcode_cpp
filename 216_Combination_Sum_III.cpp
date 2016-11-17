@@ -6,10 +6,36 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <vector>
-#include <iostream>
-using namespace std;
+#include "inc.h"
+
+
+class Solution2 {
+private:
+    void DFS(vector<vector<int>>& result, vector<int>& current, int j, int k, int n){
+        if(k == 0){
+            if(n == 0 && !current.empty()){
+                result.push_back(current);
+            }
+            return;
+        }
+        for(int i = j; i <= 9; ++i){
+            if(i * k > n){
+                break;
+            }
+            current.push_back(i);
+            DFS(result, current, i + 1, k - 1, n - i);
+            current.pop_back();
+        }
+    }
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>> result;
+        vector<int> current;
+        DFS(result, current, 1, k, n);
+        return result;
+    }
+};
+
 
 class Solution {
 public:

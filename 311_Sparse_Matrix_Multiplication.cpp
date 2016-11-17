@@ -31,7 +31,16 @@ class Solution {
 public:
     //use 2 sparse matrix to store only non-zero element position
     //Theoritically, this should be fast.
-    //BUT in real test, this method is slow than solution2, which is somehow brutal-force in matrix B
+    //BUT in real test, this method is slower than solution2, which is somehow brutal-force in matrix B
+    //Consider the following matrix (both A and B)
+    //
+    //     1 1 1 1 1
+    //     1 0 0 0 0
+    //     1 0 0 0 0
+    //     1 0 0 0 0
+    //     1 0 0 0 0
+    //
+    //Though it's sparse matrix, but non of the sparseA[i] or sparseB[i] is empty. Thus it's slow
     vector<vector<int>> multiply(vector<vector<int>>& A, vector<vector<int>>& B) {
         int m = (int)A.size(), k = (int)B.size(), n = (int)B[0].size();
         vector<vector<int>> sparseA(m, vector<int>(0, 0));

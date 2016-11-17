@@ -8,7 +8,50 @@
 
 #include "inc.h"
 
+
+class Solution2 {
+public:
+    void DFS(vector<vector<char>>& charMap, vector<string>& result, string candid, string digits, int k){
+        if(k == (int)digits.size()){
+            if(!candid.empty()){
+                result.push_back(candid);
+            }
+            return;
+        }
+        if(digits[k] != '1'){
+            for(char ch : charMap[digits[k] - '0']){
+                candid.push_back(ch);
+                DFS(charMap, result, candid, digits, k + 1);
+                candid.pop_back();
+            }
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        vector<vector<char>> charMap = {
+            {' '},
+            {},
+            {'a', 'b', 'c'},
+            {'d', 'e', 'f'},
+            {'g', 'h', 'i'},
+            {'j', 'k', 'l'},
+            {'m', 'n', 'o'},
+            {'p', 'q', 'r', 's'},
+            {'t', 'u', 'v'},
+            {'w', 'x', 'y', 'z'}
+        };
+        vector<string> result;
+        string candid = "";
+        DFS(charMap, result, candid, digits, 0);
+        return result;
+    }
+};
+
+
+
+
 class Solution {
+    //Return all possible combination
+    //Better use DFS, see solution2
 public:
     vector<string> letterCombinations(string digits) {
         vector<string> result;

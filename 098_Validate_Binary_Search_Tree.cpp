@@ -9,6 +9,7 @@
 #include "inc.h"
 
 
+
 class Solution2 {
     //in-order traverse the tree, check its monotonicity
 public:

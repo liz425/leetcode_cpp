@@ -16,6 +16,8 @@ class Solution {
 public:
     bool wordBreak(string s, unordered_set<string>& wordDict) {
         int len = (int)s.length();
+        if(len == 0)
+            return false;
         vector<bool> result(len, false);
         for(int i = 0; i < len; ++i){
             if(wordDict.find(s.substr(0, i + 1)) != wordDict.end()){

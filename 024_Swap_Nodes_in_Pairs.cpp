@@ -47,12 +47,12 @@ public:
 };
 
 
-
-//int main(void){
-//    vector<int> array = {77,57,79,24,47,21,42,38,54,26,28,30,85,32,40,62,28,89,37,24,3,51,72,59,49,7,60,44,7,27,48,37,37,27,13,36,49,55,26,55};
-//    ListNode* before_head;
-//    for(int i = 0; i < (int)array.size(); i++){
-//        ListNode* current;
-//        current->val = array[i];
-//    }
-//}
+/*
+int main(void){
+    vector<int> array = {77,57,79,24,47,21,42,38,54,26,28,30,85,32,40,62,28,89,37,24,3,51,72,59,49,7,60,44,7,27,48,37,37,27,13,36,49,55,26,55};
+    for(int i = 0; i < (int)array.size(); i++){
+        ListNode* current;
+        current->val = array[i];
+    }
+}
+*/

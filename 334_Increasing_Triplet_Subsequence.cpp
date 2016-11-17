@@ -9,6 +9,27 @@
 #include "inc.h"
 
 
+class Solution2 {
+    //Exact the same code as solution1, but in other explanation
+    //This is a special case of longest increasing subsequence
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int increase[2] = {INT_MAX, INT_MAX};
+        for(int num : nums){
+            if(num <= increase[0]){
+                increase[0] = num;
+            }else if(num <= increase[1]){
+                increase[1] = num;
+            }else{
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+
+
 class Solution {
     //Time: O(n), Space: O(1)
     //Assume that [AA, BB, CC] is the first triplet we encountered, then AA must be the smallest item
