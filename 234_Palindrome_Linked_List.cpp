@@ -11,6 +11,50 @@
 #include "ListNode.h"
 
 
+class Solution2 {
+    //Much elegant solution than previous one
+    //T = O(n), Space = O(1)
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL||head->next==NULL)
+            return true;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next != NULL && fast->next->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        ListNode* mid = slow;   //record mid for later recovery the original Linklist
+        slow->next = reverseList(slow->next);
+        slow = slow->next;      //length of the later half should be equal or 1 less than the previous half
+        bool result = true;
+        while(slow != NULL){
+            if(head->val != slow->val){
+                result = false;
+                break;
+            }
+            head = head->next;
+            slow = slow->next;
+        }
+        mid->next = reverseList(mid->next);
+        return result;
+    }
+    ListNode* reverseList(ListNode* head) {
+        ListNode* pre=NULL;
+        ListNode* next=NULL;
+        while(head!=NULL){
+            next=head->next;
+            head->next=pre;
+            pre=head;
+            head=next;
+        }
+        return pre;
+    }
+};
+
+
+
+
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {

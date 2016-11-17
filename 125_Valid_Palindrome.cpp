@@ -14,19 +14,19 @@ using namespace std;
 class Solution {
 public:
     bool isAlphanumeric(char c){
-        return ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57));
+        return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'));
     }
     bool isEqual(char a, char b){
-        if(a >= 65 && a <= 90){
-            a += 32;
+        if(a >= 'A' && a <= 'Z'){
+            a += 'a' - 'A';
         }
-        if(b >= 65 && b <= 90){
-            b += 32;
+        if(b >= 'A' && b <= 'Z'){
+            b += 'a' - 'A';
         }
         return (a == b);
     }
     bool isPalindrome(string s) {
-        int i = 0, j = (int)s.size();
+        int i = 0, j = (int)s.size() - 1;
         while(i <= j){
             while(!isAlphanumeric(s[i]) && i < j){
                 i++;
@@ -34,6 +34,7 @@ public:
             while(!isAlphanumeric(s[j]) && i < j){
                 j--;
             }
+            //either that both s[i], s[j] are legal ones, or i == j
             if(!isEqual(s[i], s[j])){
                 return false;
             }

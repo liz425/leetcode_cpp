@@ -7,33 +7,30 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include "TreeNode.h"
-using namespace std;
+#include "inc.h"
 
 
 class Solution {
-public:
-    void helper(TreeNode* root, string str, vector<string>& vec){
-        if(root != NULL){
-            if(!str.empty()){
-                str += "->";
-            }
-            str += to_string(root->val);
-            if(root->left == NULL && root->right == NULL && !str.empty()){
-                vec.push_back(str);
-            }else{
-                helper(root->left, str, vec);
-                helper(root->right, str, vec);
-            }
+private:
+    void DFS(vector<string>& result, string candid, TreeNode* root){
+        if(root == NULL){
+            return;
+        }
+        if(!candid.empty()){
+            candid += "->";
+        }
+        candid += to_string(root->val);
+        if(root->left == NULL && root->right == NULL){
+            result.push_back(candid);
+        }else{
+            DFS(result, candid, root->left);
+            DFS(result, candid, root->right);
         }
     }
+public:
     vector<string> binaryTreePaths(TreeNode* root) {
-        vector<string> vec;
-        string str = "";
-        helper(root, str, vec);
-        return vec;
+        vector<string> result;
+        DFS(result, "", root);
+        return result;
     }
 };

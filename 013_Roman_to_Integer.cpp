@@ -6,9 +6,30 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <string>
-using namespace std;
+#include "inc.h"
+
+
+class Solution2 {
+public:
+    int romanToInt(string s) {
+        if(s.empty()){
+            return 0;
+        }
+        unordered_map<char, int> m = {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
+        int len = (int)s.size();
+        int sum = m[s[len - 1]];
+        for(int i = 0; i <= len - 2; ++i){
+            if(m[s[i]] >= m[s[i + 1]]){
+                sum += m[s[i]];
+            }else{
+                sum -= m[s[i]];
+            }
+        }
+        return sum;
+    }
+};
+
+
 
 class Solution {
 public:
