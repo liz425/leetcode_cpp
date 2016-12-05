@@ -40,9 +40,9 @@ public:
             if(pos == 0){
                 DFS(result, num, target, opStr, i + 1, opVal, opVal);   //shouldn't add operator at begining
             }else{
-                DFS(result, num, target, cur+'+'+opStr, i + 1, value + opVal, opVal);
-                DFS(result, num, target, cur+'-'+opStr, i + 1, value - opVal, -opVal);
-                DFS(result, num, target, cur+'*'+opStr, i + 1, value - right + right * opVal, right * opVal);
+                DFS(result, num, target, cur + '+' + opStr, i + 1, value + opVal, opVal);
+                DFS(result, num, target, cur + '-' + opStr, i + 1, value - opVal, -opVal);
+                DFS(result, num, target, cur + '*' + opStr, i + 1, value - right + right * opVal, right * opVal);
             }
         }
     }

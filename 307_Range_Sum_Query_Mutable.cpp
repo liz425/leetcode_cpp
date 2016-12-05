@@ -11,7 +11,7 @@
 
 
 class NumArray2 {
-    //BIT solution
+    //BIT tree solution
 private:
     vector<int> tree;   //BIT tree, index from 1
     int maxSize;
@@ -64,6 +64,7 @@ public:
         return querySum(j) - querySum(i - 1);
     }
 };
+
 
 
 class NumArray {

@@ -27,6 +27,7 @@ public:
                 remain--;
             if(remain < 0){
                 for(int j = lastRemoval; j <= i; ++j){
+                    //s[j] should be parensis to be removed and for the consecutive ones, only remove the first
                     if(s[j] == paren[1] && (j == lastRemoval || s[j] != s[j-1]))
                         DFS(s.substr(0, j) + s.substr(j+1, s.size() - 1 - j), j, i, paren);
                 }

@@ -10,6 +10,7 @@
 
 
 class Solution {
+    //note that the input is already sorted based on the left x position
 public:
     vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
         vector<pair<int, int>> result;
