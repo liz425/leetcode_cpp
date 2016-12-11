@@ -8,6 +8,7 @@
 
 #include "inc.h"
 
+/*
 class Solution2 {
 public:
     int getMaxRepetitions(string s1, int n1, string s2, int n2) {
@@ -67,7 +68,7 @@ public:
         return cnt / n2;
     }
 };
-
+*/
 
 
 

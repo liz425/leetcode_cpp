@@ -21,6 +21,7 @@
 #include <map>
 #include <unordered_set>
 #include <unordered_map>
+#include <functional>
 
 #include <limits>
 #include <algorithm>
@@ -28,7 +29,6 @@
 #include <numeric>
 
 #include "time.h"
-
 
 #include "ListNode.h"
 #include "TreeNode.h"

@@ -9,7 +9,8 @@
 #include "inc.h"
 
 
-struct comparator{
+class comparator{
+public:
     bool operator()(ListNode *a, ListNode *b){
         return a->val > b->val;
     }
@@ -48,3 +49,4 @@ public:
         return current;
     }
 };
+
