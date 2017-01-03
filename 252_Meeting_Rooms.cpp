@@ -9,6 +9,24 @@
 
 #include "inc.h"
 
+class Solution3 {
+    //same as Solution, just use Lamda as comparator
+public:
+    bool canAttendMeetings(vector<Interval>& intervals) {
+        int n = (int)intervals.size();
+        auto comp = [](Interval a, Interval b) -> bool{
+            return (a.start == b.start) ? a.end < b.end : a.start < b.start;
+        };
+        sort(intervals.begin(), intervals.end(), comp);
+        for(int i = 1; i < n; ++i){
+            if(intervals[i - 1].end > intervals[i].start){
+                return false;
+            }
+        }
+        return true;
+    }
+};
+
 
 
 class Solution2 {

@@ -6,11 +6,40 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <vector>
-#include <queue>
-#include "TreeNode.h"
-using namespace std;
+#include "inc.h"
+
+
+
+class Solution2 {
+    //Interviewer may prefer only one while-loop rather than two. If so, use first Solution instead.
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> result;
+        queue<TreeNode*> q;
+        if(root){
+            q.push(root);
+        }
+        while(!q.empty()){
+            int n = (int)q.size();
+            vector<int> level;
+            while(n-- > 0){
+                TreeNode* head = q.front();
+                q.pop();
+                level.push_back(head->val);
+                if(head->left){
+                    q.push(head->left);
+                }
+                if(head->right){
+                    q.push(head->right);
+                }
+            }
+            result.push_back(level);
+        }
+        return result;
+    }
+};
+
+
 
 class Solution {
     //BFS

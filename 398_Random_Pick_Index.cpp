@@ -35,8 +35,11 @@ public:
 };
 
 
-/**
- * Your Solution object will be instantiated and called as such:
- * Solution obj = new Solution(nums);
- * int param_1 = obj.pick(target);
- */
+/*
+int main(void){
+    vector<int> nums = {1, 2, 3, 3, 3};
+    int target = 3;
+    Solution ss(nums);
+    cout << ss.pick(target) << endl;
+}
+*/

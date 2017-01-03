@@ -22,11 +22,14 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <functional>
+#include <memory>
+#include <exception>
 
 #include <limits>
 #include <algorithm>
 #include <cmath>
 #include <numeric>
+
 
 #include "time.h"
 

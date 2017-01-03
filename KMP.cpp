@@ -19,6 +19,8 @@ vector<int> getNext(string P){
     //The insight here is that next[i] is the length of prefix which is a suffix of P[1..i], BUT should be smaller than i
     int k = -1;
     for(int i = 1; i <= m; ++i){
+        //needle[1~i-1] has matched needle[1~k], then we should try to match needle[k + 1] <-> needle[i]
+        //since both are index-1 based, then we should actually match needle[k] <-> needle[i - 1]
         while(k >= 0 && P[k] != P[i - 1]){
             k = next[k];
         }

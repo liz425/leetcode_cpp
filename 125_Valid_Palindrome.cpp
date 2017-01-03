@@ -6,9 +6,7 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <string>
-using namespace std;
+#include "inc.h"
 
 
 class Solution {
@@ -27,7 +25,7 @@ public:
     }
     bool isPalindrome(string s) {
         int i = 0, j = (int)s.size() - 1;
-        while(i <= j){
+        while(i < j){
             while(!isAlphanumeric(s[i]) && i < j){
                 i++;
             }

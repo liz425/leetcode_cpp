@@ -9,6 +9,25 @@
 #include "inc.h"
 
 
+class Solution2 {
+    //Prefer not use global variable
+public:
+    int sumOfLeftLeaves(TreeNode* root) {
+        return DFS(root, false);
+    }
+    int DFS(TreeNode* root, bool isLeft){
+        if(!root){
+            return 0;
+        }else if(isLeft && !root->left && !root->right){
+            return root->val;
+        }else{
+            return DFS(root->left, true) + DFS(root->right, false);
+        }
+    }
+};
+
+
+
 class Solution {
     void DFS(TreeNode* root, int isLeft, int& sum){
         if(root == NULL){

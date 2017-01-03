@@ -8,6 +8,26 @@
 
 #include "inc.h"
 
+class Solution3 {
+    //Idea is same to Solution2, but can reduce write to nums vector
+    //However, Solution2 is cleaner
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n = (int)nums.size();
+        int j = min(n, 1);
+        for(int i = 1; i < n; ++i){
+            if(nums[i] != nums[i - 1]){
+                if(i != j){
+                    nums[j++] = nums[i];
+                }else{
+                    j++;
+                }
+            }
+        }
+        return j;
+    }
+};
+
 
 class Solution2 {
 public:

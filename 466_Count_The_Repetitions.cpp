@@ -1,5 +1,5 @@
 //
-//  Leetcode_Contest4.cpp
+//  466_Count_The_Repetitions.cpp
 //  leetcode_cpp
 //
 //  Created by Zhen Li on 12/3/16.
@@ -119,10 +119,10 @@ public:
 
 /*
 int main(void){
-    Solution2 ss;
-    string s1 = "abcd";
-    string s2 = "abcd";
-    int n1 = 1000000, n2 = 1000000;
+    Solution ss;
+    string s1 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    string s2 = "a";
+    int n1 = 1000000, n2 = 1;
     cout << ss.getMaxRepetitions(s1, n1, s2, n2) << endl;
 }
 */

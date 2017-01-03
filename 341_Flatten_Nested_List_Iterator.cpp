@@ -25,7 +25,8 @@ public:
 
 class NestedIterator {
 private:
-    //change to const_iterator
+    //change to const_iterator!!!!
+    //Have to use const_iterator to iterate an const vector
     stack<vector<NestedInteger>::const_iterator> begins;
     stack<vector<NestedInteger>::const_iterator> ends;
 public:

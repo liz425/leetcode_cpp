@@ -6,9 +6,28 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <vector>
-using namespace std;
+#include "inc.h"
+
+
+class Solution2 {
+    //minimized operations to vector nums[]
+public:
+    void moveZeroes(vector<int>& nums) {
+        int n = (int)nums.size();
+        int left = 0;
+        for(int right = 0; right < n; ++right){
+            if(nums[right] != 0){
+                if(right != left){
+                    swap(nums[left++], nums[right]);
+                }else{
+                    left++;
+                }
+            }
+        }
+    }
+};
+
+
 
 class Solution {
 public:

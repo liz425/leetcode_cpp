@@ -98,6 +98,7 @@ public:
                         graph[edge].distance = graph[current].distance - 1;
                         fringe2.push(edge);
                     }else if(graph[edge].distance == graph[current].distance - 1){
+                        continue;
                     }else if(graph[edge].distance > 0){
                         found = true;
                         return graph[edge].distance - graph[current].distance;
