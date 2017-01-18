@@ -6,14 +6,13 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
+#include "inc.h"
+
+
+
 class Solution {
 public:
-  bool canWinNim(int n) {
-    if(n % 4 != 0){
-      return true;
-    }else{
-      return false;
+    bool canWinNim(int n) {
+        return (n % 4 != 0);
     }
-  }
 };

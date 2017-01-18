@@ -14,6 +14,7 @@ class Solution2 {
     //if the next num : nums[i] <= miss, then we could use it and expand miss --> miss + nums[i]
     //Otherwise, we need to choose from [1-miss] to fill the missing hole
     //Obviously, choose miss will have the highest profit, to expand miss --> miss * 2
+    //Notice that there is a test case where n = 2147483647(INT_MAX), thus max should use long rather than int
 public:
     int minPatches(vector<int>& nums, int n) {
         long miss = 1;

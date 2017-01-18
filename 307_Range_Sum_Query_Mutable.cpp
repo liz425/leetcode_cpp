@@ -112,7 +112,10 @@ public:
         tree[treeIndex] = merge(tree[treeIndex * 2 + 1], tree[treeIndex * 2 + 2]);
     }
     int sumRange(int i, int j) {
-        if(size == 0) return 0;
+        //If size == 0, we will not build any tree at all
+        if(size == 0){
+            return 0;
+        }
         return queryTree(0, i, j, 0, size - 1);
     }
     int queryTree(int treeIndex, int i, int j, int lo, int hi){
@@ -135,7 +138,7 @@ public:
 };
 
 
-/*
+
 int main(){
     vector<int> nums = {-28,-39,53,65,11,-56,-65,-39,-43,97};
     NumArray numArray(nums);
@@ -151,4 +154,4 @@ int main(){
     numArray.update(4,-67);
     return 1;
 }
-*/
+

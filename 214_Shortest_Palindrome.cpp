@@ -36,8 +36,7 @@ public:
             }
             k++;
         }
-        string pre = s.substr(k, n - k);
-        reverse(pre.begin(), pre.end());
+        string pre = r.substr(0, n - k);
         return pre + s;
     }
 };

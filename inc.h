@@ -12,6 +12,7 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 
 #include <stack>
 #include <vector>

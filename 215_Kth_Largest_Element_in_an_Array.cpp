@@ -28,10 +28,8 @@ public:
         index = start;
         //do not iterate through the last item, which is the pivot
         for(int i = start; i < end - 1; ++i){
-            //Must use '<=' rather than '<'
-            //In the case that all nums are the same (e.g. {1,1,1,1,1})
-            //if use '<', when loop finished, index == start, the range does not shrink
-            //So once an item is equal to pivot, swap.
+            //use either '<=' or '<' is ok
+            //since after loop, index < end and index + 1 > start, the next partition will always shrink
             if(nums[i] <= pivot){
                 swap(nums[i], nums[index]);
                 index++;

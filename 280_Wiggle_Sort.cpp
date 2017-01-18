@@ -8,6 +8,23 @@
 
 #include "inc.h"
 
+class Solution2 {
+public:
+    void wiggleSort(vector<int>& nums) {
+        int n = (int)nums.size();
+        if(n <= 1){
+            return;
+        }
+        for(int i = 1; i < n; ++i){
+            if((i % 2 == 1 && nums[i - 1] > nums[i]) || (i % 2 == 0 && nums[i - 1] < nums[i])){
+                swap(nums[i - 1], nums[i]);
+            }
+        }
+        return;
+    }
+};
+
+
 class Solution {
 public:
     void wiggleSort(vector<int>& nums) {
