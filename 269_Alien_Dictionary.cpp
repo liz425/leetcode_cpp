@@ -10,6 +10,8 @@
 
 
 class Solution {
+    //Some letter may not be in the graph, i.e. they do not have predecence relation with other letter
+    //But they should be in the final result string. Since once a letter appears, it should be included.
 public:
     vector<int> color;  //-1: not exist, 0: white, 1: gray, 2:black
     vector<vector<int>> graph;
@@ -24,7 +26,7 @@ public:
         for(int i = 0; i < (int)words.size(); ++i){
             for(char ch : words[i])
                 color[ch - 'a'] = 0;
-            if(i > 0 && words[i] != words[i - 1]){
+            if(i > 0){
                 int j = 0;
                 while(j < words[i].size() && j < words[i - 1].size()){
                     if(words[i][j] != words[i - 1][j]){
@@ -34,7 +36,7 @@ public:
                     }
                     j++;
                 }
-                if(j >= words[i].size())    //words[i] is prefix of words[i-1]
+                if(j == words[i].size() && words[i].size() < words[i - 1].size())    //words[i] is prefix of words[i-1]
                     return "";
             }
         }

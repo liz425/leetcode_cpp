@@ -6,9 +6,38 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <cstdlib>
-#include <limits.h>
-#include <cmath>
+#include "inc.h"
+
+
+class Solution3 {
+public:
+    int divide(int dividend, int divisor) {
+        if(divisor == 0 || (dividend == INT_MIN && divisor == -1)){
+            return INT_MAX;
+        }
+        int flag = ((dividend >= 0 && divisor > 0) || (dividend < 0 && divisor < 0)) ? 1 : 0;
+        long dividend_l = abs(long(dividend));
+        long divisor_l = abs(long(divisor));
+        long bit = 1;
+        while(dividend_l >= (divisor_l << 1)){
+            divisor_l = divisor_l << 1;
+            bit = bit << 1;
+        }
+        int result = 0;
+        while(bit > 0){
+            if(dividend_l >= divisor_l){
+                dividend_l -= divisor_l;
+                result += bit;
+            }
+            //cout << divisor_l << endl;
+            divisor_l = divisor_l >> 1;
+            bit = bit >> 1;
+        }
+        return flag? result : -result;
+    }
+};
+
+
 
 class Solution2 {
     //Use long long to deal with 'abs(INT_MIN)'

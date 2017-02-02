@@ -24,9 +24,9 @@ public:
     }
     
     int next() {
-        int result = *((*listIt).first);
-        (*listIt).first++;
-        if((*listIt).first == (*listIt).second){
+        int result = *(listIt->first);
+        (listIt->first)++;
+        if(listIt->first == listIt->second){
             listIt = its.erase(listIt);
         }else{
             listIt++;

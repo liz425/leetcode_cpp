@@ -11,7 +11,7 @@
 
 class Solution {
     //Using multiset as HashHeap
-    //addNum: O(logn),  removeNum: O(logn)
+    //addNum: O(logk),  removeNum: O(logk)
     //getMedian: O(1),  medianSlidingWindow: O(n*logk)
 public:
     multiset<int> minHeap;

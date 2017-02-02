@@ -8,6 +8,67 @@
 
 #include "inc.h"
 
+
+class LRUCache3 {
+    //Same implementation wieh LRUCache2, just create two memeber functions for those common operations.
+    //Notice: CAN NOT assign list<>::reverse_iterator to list<>::iterator.
+    //E.g. If we want the iterator storing the last item, we SHOULD NOT use:
+    // THIS IS WRONG:   list<>::iterator it = ls.rbegin();
+    //Instead, we should use the following:
+    // THIS IS Correct: list<>::iterator it = next(ls.begin(), -1);
+private:
+    list<pair<int, int>> data;
+    unordered_map<int, list<pair<int, int>>::iterator> hm;
+    int _capacity;
+    void setAsRecent(list<pair<int, int>>::iterator it){
+        data.push_back(*it);
+        data.erase(it);
+        hm[data.back().first] = next(data.end(), -1);
+        return;
+    }
+    void eraseData(list<pair<int, int>>::iterator it){
+        hm.erase(it->first);
+        data.erase(it);
+        return;
+    }
+public:
+    LRUCache3(int capacity):_capacity(capacity) {
+        
+    }
+    
+    int get(int key) {
+        if(hm.find(key) == hm.end()){
+            return -1;
+        }else{
+            setAsRecent(hm[key]);
+            return hm[key]->second;
+        }
+    }
+    
+    void put(int key, int value) {
+        if(hm.find(key) != hm.end()){
+            hm[key]->second = value;
+            setAsRecent(hm[key]);
+        }else{
+            if(data.size() >= _capacity){
+                eraseData(data.begin());
+            }
+            data.emplace_back(key, value);
+            hm[key] = next(data.end(), -1);
+        }
+        return;
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
+
+
+
 class LRUCache2{
     //using STL list<>
     unordered_map<int, list<pair<int, int>>::iterator> hash;
@@ -29,7 +90,7 @@ public:
         return item.second;
     }
     
-    void set(int key, int value) {
+    void put(int key, int value) {
         if(hash.find(key) != hash.end())
             cache.erase(hash[key]);  // now cache_size == (hash_size - 1)
         if(cache.size() == m_capacity){  //note that in C++98, list.size() takes linear time
@@ -82,7 +143,7 @@ public:
         }
     }
     
-    void set(int key, int value) {
+    void put(int key, int value) {
         node* recentNode;
         if(hash.find(key) != hash.end()){
             recentNode = hash[key];
@@ -119,18 +180,18 @@ public:
     }
 };
 
+
 /*
 int main(){
-    LRUCache cache(1);
+    LRUCache3 cache(2);
+    cache.put(1, 1);
+    cache.put(2, 2);
     cout << cache.get(1) << endl;
-    cache.set(1, 100);
-    cout << cache.get(1) << endl;
-    cache.set(2, 200);
-    cache.get(1);
-    cache.set(2, 150);
-    cache.set(3, 300);
+    cache.put(3, 3);
     cout << cache.get(2) << endl;
+    cache.put(4, 4);
     cout << cache.get(1) << endl;
     cout << cache.get(3) << endl;
+    cout << cache.get(4) << endl;
 }
 */

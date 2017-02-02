@@ -9,6 +9,44 @@
 #include "inc.h"
 
 
+class Solution2 {
+    //A binary search template similar to STL.
+    //Use [lo, hi) to indicate the search range, 'mid != hi' as the loop condition.
+    //Also we can use lo < hi as the loop condition.
+    //When loop ends, we only need to check 'mid', which is better than Solution1.
+public:
+    int search(vector<int>& nums, int target) {
+        int n = (int)nums.size();
+        int lo = 0, hi = n;
+        int mid = lo + (hi - lo) / 2;
+        while(mid != hi && nums[mid] != target){    // we can also use 'lo < hi' as the loop condition
+            //cout << lo << " " << mid << " " << hi << endl;
+            if(nums[mid] >= nums[lo]){
+                if(target >= nums[lo] && target < nums[mid]){
+                    hi = mid;
+                }else{
+                    lo = mid + 1;
+                }
+            }else{
+                if(target > nums[mid] && target <= nums[hi - 1]){
+                    //Notice the last item is nums[hi - 1], NOT nums[hi]
+                    lo = mid + 1;
+                }else{
+                    hi = mid;
+                }
+            }
+            mid = lo + (hi - lo) / 2;
+        }
+        if(mid == hi){
+            return -1;
+        }else{
+            return mid;
+        }
+    }
+};
+
+
+
 class Solution {
 public:
     //Check Jiuzhang Algo., Basic Chap2 to get more details.

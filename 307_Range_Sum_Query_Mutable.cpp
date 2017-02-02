@@ -138,7 +138,7 @@ public:
 };
 
 
-
+/*
 int main(){
     vector<int> nums = {-28,-39,53,65,11,-56,-65,-39,-43,97};
     NumArray numArray(nums);
@@ -154,4 +154,4 @@ int main(){
     numArray.update(4,-67);
     return 1;
 }
-
+*/

@@ -6,9 +6,36 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <string>
-using namespace std;
+#include "inc.h"
+
+
+class Solution2 {
+    //Only one while loop.
+public:
+    string reverseVowels(string s) {
+        if(s.empty()){
+            return s;
+        }
+        int i = 0, j = (int)s.size() - 1;
+        while(i < j){
+            if(!isVowel(s[i])){
+                ++i;
+            }else if(!isVowel(s[j])){
+                --j;
+            }else{
+                swap(s[i], s[j]);
+                ++i;
+                --j;
+            }
+        }
+        return s;
+    }
+    bool isVowel(char c){
+        c = char(tolower(c));
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+    }
+};
+
 
 
 class Solution {

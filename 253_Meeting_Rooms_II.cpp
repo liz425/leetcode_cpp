@@ -51,6 +51,14 @@ public:
         if(intervals.empty())
             return 0;
         sort(intervals.begin(), intervals.end(), comp);
+        
+        /*
+        auto cmp = [](Interval& a, Interval& b) -> bool{
+            return a.start < b.start;
+        };
+        sort(intervals.begin(), intervals.end(), cmp);
+        */
+        
         priority_queue<int, vector<int>, std::greater<int>> rooms;
         rooms.push(0);
         for(auto& meeting : intervals){
