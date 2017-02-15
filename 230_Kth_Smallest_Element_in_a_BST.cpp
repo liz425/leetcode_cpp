@@ -6,8 +6,32 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include "TreeNode.h"
+#include "inc.h"
+
+
+class Solution2 {
+    //pre-order traversal
+    //Notice that in the original definition of the kthSmallest function, the argument 'k' is passed by value, not by reference.
+    //Here for easier recurrsion, we pass 'k' as reference.
+public:
+    int kthSmallest(TreeNode* root, int& k) {
+        if(!root){
+            return 0;
+        }
+        int leftVal = kthSmallest(root->left, k);
+        if(k < 1){
+            return leftVal;
+        }else if(k == 1){
+            k--;
+            return root->val;
+        }else{
+            k--;
+            return kthSmallest(root->right, k);
+        }
+    }
+};
+
+
 
 class Solution {
 public:

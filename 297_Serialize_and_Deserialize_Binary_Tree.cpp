@@ -9,8 +9,52 @@
 #include "inc.h"
 
 
+class Codec2 {
+    //Recurrsive solution. Pre-order traversal
+public:
+    
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string result = "";
+        serializeHelper(root, result);
+        return result;
+    }
+    void serializeHelper(TreeNode* root, string& result){
+        if(!root){
+            result += "#,";
+        }else{
+            result += to_string(root->val) + ",";
+            serializeHelper(root->left, result);
+            serializeHelper(root->right, result);
+        }
+    }
+    
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        int index = 0;
+        return deserializeHelper(data, index);
+    }
+    TreeNode* deserializeHelper(string& data, int& index){
+        string node = "";
+        while(data[index] != ','){
+            node += data[index++];
+        }
+        index++;
+        if(node == "#"){
+            return NULL;
+        }
+        TreeNode* root = new TreeNode(stoi(node));
+        root->left = deserializeHelper(data, index);
+        root->right = deserializeHelper(data, index);
+        return root;
+    }
+};
+
+
+
 
 class Codec {
+    //BFS solution. Non-recurrsive solution
 public:
     
     // Encodes a tree to a single string.

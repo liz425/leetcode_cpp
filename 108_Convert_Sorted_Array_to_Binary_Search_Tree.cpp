@@ -6,27 +6,23 @@
 //  Copyright © 2016 zl. All rights reserved.
 //
 
-#include <stdio.h>
-#include <vector>
-#include "TreeNode.h"
-using namespace std;
-
+#include "inc.h"
 
 
 class Solution {
 public:
-  TreeNode* sortedArrayToBST(vector<int>& nums) {
-    return sortedArrayToBSTHelper(nums, 0, (int)nums.size() - 1);
-  }
-  
-  TreeNode* sortedArrayToBSTHelper(vector<int>& nums, int i, int j){
-    int middle = (i + j + 1)/2;
-    if(i > j){
-      return NULL;
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        return helper(nums, 0, (int)nums.size());
     }
-    TreeNode* current = new TreeNode(nums[middle]);
-    current->left = sortedArrayToBSTHelper(nums, i, middle - 1);
-    current->right = sortedArrayToBSTHelper(nums, middle + 1, j);
-    return current;
-  }
+    TreeNode* helper(vector<int>& nums, int start, int end){
+        if(start >= end){
+            return NULL;
+        }
+        int mid = start + (end - start) / 2;
+        TreeNode* current = new TreeNode(nums[mid]);
+        current->left = helper(nums, start, mid);
+        current->right = helper(nums, mid + 1, end);
+        return current;
+    }
 };
+

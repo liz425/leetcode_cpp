@@ -9,6 +9,26 @@
 #include "inc.h"
 
 
+class Solution2 {
+    //Difference from Solution1: return val of helper can be negtive.
+    int maxSum = INT_MIN;
+public:
+    int maxPathSum(TreeNode* root) {
+        helper(root);
+        return maxSum;
+    }
+    int helper(TreeNode* root){
+        if(!root){
+            return 0;
+        }
+        int leftVal = max(0, helper(root->left));
+        int rightVal = max(0, helper(root->right));
+        maxSum = max(maxSum, root->val + leftVal + rightVal);
+        return root->val + max(leftVal, rightVal);
+    }
+};
+
+
 class Solution {
 public:
     int maxSum = INT_MIN;
